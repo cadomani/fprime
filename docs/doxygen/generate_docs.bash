@@ -32,7 +32,7 @@ function github_page_adjustment
     DIRECTORY="${1}"
     shift
     echo "[INFO] Munching '_'s in ${DIRECTORY}"
-    python "${SOURCE_DIR}/gh_pages.py" "${DIRECTORY}"
+    python3 "${SOURCE_DIR}/gh_pages.py" "${DIRECTORY}"
 }
 function clobber
 {
@@ -43,7 +43,7 @@ function clobber
         echo "[ERROR] Cannot clobber ${DIRECTORY} as it is not a child of ${APIDOCS}"
         exit 233
     fi
-    rm -r "${DIRECTORY}"
+    rm -rf "${DIRECTORY}"
 }
 
 function make_version
@@ -71,7 +71,7 @@ function make_version
     (
         mkdir -p "${FPRIME}/build-fprime-automatic-docs"
         cd "${FPRIME}/build-fprime-automatic-docs"
-        cmake "${FPRIME}" -DCMAKE_BUILD_TYPE=Release 1>/dev/null
+        cmake "${FPRIME}" -DCMAKE_BUILD_TYPE=Release
     )
     fprime-util build "docs" --all -j12 1> /dev/null
     if (( $? != 0 ))
@@ -81,7 +81,7 @@ function make_version
     fi
     mkdir -p ${DOXY_OUTPUT}
     ${DOXYGEN} "${FPRIME}/docs/doxygen/Doxyfile"
-    rm -r "${FPRIME}/build-fprime-automatic-docs"
+    rm -rf "${FPRIME}/build-fprime-automatic-docs"
 ) || exit 1
 
 # CMake
