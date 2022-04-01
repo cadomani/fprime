@@ -73,7 +73,7 @@ function make_version
         cd "${FPRIME}/build-fprime-automatic-docs"
         cmake "${FPRIME}" -DCMAKE_BUILD_TYPE=Release
     )
-    fprime-util build "docs" --all -j12 1> /dev/null
+    fprime-util build "docs" --all -j12
     if (( $? != 0 ))
     then
         echo "[ERROR] Failed to build fprime please generate build cache"
