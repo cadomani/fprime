@@ -73,7 +73,7 @@ function make_version
         cd "${FPRIME}/build-fprime-automatic-docs"
         cmake "${FPRIME}" -DCMAKE_BUILD_TYPE=Release 1>/dev/null
     )
-    fprime-util build "docs" --all -j32 1> /dev/null
+    fprime-util build "docs" --all -j12 1> /dev/null
     if (( $? != 0 ))
     then
         echo "[ERROR] Failed to build fprime please generate build cache"
@@ -96,4 +96,6 @@ function make_version
 github_page_adjustment "${DOXY_OUTPUT}/html"
 make_version "${VERSIONED_OUTPUT}"
 
-
+# Copy images so that their references are not broken
+mkdir -p ${FPRIME}/docs/UsersGuide/api/c++/html/img
+find ${FPRIME}/Fw ${FPRIME}/Svc ${FPRIME}/Drv -name '*.jpg' -o -name '*.png' -o -name '*.svg' | xargs cp -t ${FPRIME}/docs/UsersGuide/api/c++/html/img

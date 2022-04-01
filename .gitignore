@@ -36,7 +36,7 @@ Tester.*
 *.sconsign.dblite
 *.class
 .classpath
-doxygen
+# doxygen
 .scrub*
 .coverity*
 coverity.out
